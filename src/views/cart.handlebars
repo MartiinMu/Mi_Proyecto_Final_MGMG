@@ -1,0 +1,53 @@
+
+<h2>Carrito</h2>
+
+
+
+  <a href="/api/sessions/current" class="linkPerfil">Ir a Perfil</a>
+
+  <span class="plusPerfil">+</span>
+</div>
+
+
+{{#if mensaje}}
+
+ <h1> NO EXISTE PRODUCTOS EN EL CARRITO</h1>
+{{else}}
+ 
+
+<hr>
+<ul>
+    {{#each cart}}
+    <li>
+
+        <strong>Producto:</strong> {{this._id}} <br>
+       
+
+
+<br><br>
+
+    </li>
+    
+    {{/each}}
+</ul> 
+
+<br><br>
+
+<a href="/api/carts/{{usuarioCookie.cart}}/purchase">COMPRAR</a>
+
+
+<br><br><br><br>
+
+{{/if}}
+
+
+
+
+
+
+
+<a href="/products">Productos</a> <br>
+<a href="/">Home</a>
+
+<script src="socket.io/socket.io.js"></script>
+<script src="js/Client.js"></script>

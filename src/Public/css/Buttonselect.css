@@ -1,0 +1,37 @@
+.botonContainer2 {
+    display: inline-block;
+    padding: 15px 30px; 
+    border-radius: 10px; 
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(to bottom, #FF5733, #FFB366);
+    border: 1.5px solid #000; 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); 
+    position: relative;
+    overflow: hidden;
+    justify-content: space-between;
+  }
+  
+  .productSelect2 {
+    color: #fff; 
+    text-decoration: none; 
+    flex: 1;
+  }
+  
+  .plus2 {
+   
+    margin-left: 10px; 
+    width: 70%; 
+    text-align: center;
+    transform: scaleX(1.5);
+    
+  }
+
+  
+  .roma {
+ color: blue;
+ background-color: gray;
+ height: 150px;
+ width: 150px;
+  }
+  

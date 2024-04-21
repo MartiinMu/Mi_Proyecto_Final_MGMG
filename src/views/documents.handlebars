@@ -1,0 +1,28 @@
+
+    <h2>Subir documentacion</h2>
+
+    {{#if error}}
+        <div style="color: red;">{{error}}</div>
+    {{/if}}
+
+    {{#if mensaje}}
+        <div style="color: green;">{{mensaje}}</div>
+    {{/if}}
+
+   <form id="uploadForm" action="/api/users/{{id}}/documents" method="post" enctype="multipart/form-data">
+
+    <label for="tipoDocumento">Tipo de Documento:</label>
+    <select name="tipoDocumento" id="tipoDocumento">
+        <option value="">Seleccionar</option>
+        <option value="ImgProfile">Foto de Perfil</option>
+        <option value="ImgProduct">Foto de producto</option>
+        <option value="Identifiacion">Identificacion</option>
+        <option value="Adress">Comrobante de domicilio</option>
+        <option value="statusAccount">Comprobante de estado de cuenta</option>
+    </select>
+<br><br>
+
+    <input type="file" name="profile" /><br>
+    <input type="submit" value="Upload" class="click">
+</form>
+

@@ -1,0 +1,56 @@
+
+<h2>Productos</h2>
+<hr>
+<ul>
+    {{#each products}}
+    <li>
+
+        <strong>Id:</strong> {{this.id}} <br>
+        <strong>Title:</strong> {{this.title}} <br>
+        <strong>Description:</strong> {{this.description}}<br>
+        <strong>Code:</strong> {{this.code}}<br>
+        <strong>Price: </strong> {{this.price}}<br>
+        <strong>Status: </strong>{{this.status}}<br>
+        <strong>Stock: </strong> {{this.stock}}<br>
+        <strong>Category: </strong>{{this.category}}<br>
+        <strong>Thumbnails: </strong> {{this.thumbnails}}<br>
+
+<br><br>
+
+    </li>
+    
+    {{/each}}
+</ul>
+
+<br><br>
+
+
+
+
+
+<a href="/realTimeProducts?page=1">Pág.1</a>
+
+{{#if hasPrevPage}}
+    <a href="/realTimeProducts?page={{prevPage}}">Pág.Ant.</a>
+{{else}}
+    <span>Pág.Ant.</span>
+{{/if}}
+
+{{#if hasNextPage}}
+    <a href="/realTimeProducts?page={{nextPage}}">Pág.Sig.</a>
+{{else}}
+    <span>Pág.Sig.</span>
+{{/if}}
+
+<a href="/realTimeProducts?page={{totalPages}}">Ult.Pág.</a>
+
+
+
+
+
+
+
+<a href="/">Home</a>
+
+<script src="socket.io/socket.io.js"></script>
+<script src="js/Client.js"></script>

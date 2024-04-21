@@ -1,0 +1,308 @@
+paths:
+  /api/products/:
+    get:
+      summary: Obtiene todos los productos.
+      tags:
+        - Products
+      parameters:
+        - in: query
+          name: limit
+          description: limita la cantidad de productos a devolver
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Los productos fueron obtenidos OK desde la DB
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Product'
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: No hay usuarios logueados
+                example2: 
+                  value:
+                    message: No tiene privilegios suficientes para acceder a este recurso
+    post:
+      summary: Crea y graba productos en la Base de Datos. 
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/createProducts'
+      responses:
+        "200":
+          description: Producto creado correctamente
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Product'
+        "400":
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: Faltan ingresar propiedades del producto. 
+                example2: 
+                  value:
+                    message: Codigo repetido
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: No hay usuarios logueados
+                example2: 
+                  value:
+                    message: No tiene privilegios suficientes para acceder a este recurso
+        "500":
+          content:
+            application/json:
+              examples:  
+                example1:
+                  value:
+                    message: Error generico.
+                example2: 
+                  value:
+                    message: Error inesperado en el servidor - Intente más tarde, o contacte a su administrador
+                
+  /api/products/{pid}:
+    get:
+      summary: Obtiene un producto en especifico. 
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          description: Id mongoose del producto a obtener.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: El producto se obtuvo exitosamente.
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Product'
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: No hay usuarios logueados
+                example2: 
+                  value:
+                    message: No tiene privilegios suficientes para acceder a este recurso
+    put:
+      summary: Actualiza un producto. 
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          description: Id mongoose del producto a actualizar.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/createProducts'
+      responses:
+        "200":
+          description: El producto se actualizo correctamente.
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Product'
+        "400":
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: El id ingresado no es un ID mongoose. 
+                example2: 
+                  value:
+                    message: Id no existe en la Base de Datos
+                example3: 
+                  value:
+                    message: No se pueden modificar la propiedades "_id" y "code"
+                example4: 
+                  value:
+                    message: No se concreto la modificacion
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: No hay usuarios logueados
+                example2: 
+                  value:
+                    message: No tiene privilegios suficientes para acceder a este recurso
+        "500":
+          content:
+            application/json:
+              examples:  
+                example1:
+                  value:
+                    message: Error generico.
+                example2: 
+                  value:
+                    message: Error inesperado en el servidor - Intente más tarde, o contacte a su administrador
+    delete:
+      summary: Eliminar Producto. 
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          description: Id mongoose del producto a actualizar.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/createProducts'
+      responses:
+        "200":
+          description: El producto se elimino correctamente.
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Product'
+        "400":
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: El id ingresado no es un ID mongoose. 
+                example2: 
+                  value:
+                    message: Id no existe en la Base de Datos
+                example3: 
+                  value:
+                    message: El owner del producto no coincide con su rol y owner
+                example4: 
+                  value:
+                    message: No se concreto la eliminacion
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: No hay usuarios logueados
+                example2: 
+                  value:
+                    message: No tiene privilegios suficientes para acceder a este recurso
+        "500":
+          content:
+            application/json:
+              example:  Error inesperado en el servidor - Intente más tarde, o contacte a su administrador
+
+
+
+
+
+
+
+
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+          readOnly: true
+          description: Identificador unico mongoose
+          example: "615e9e6b605378001d52d7c3"
+        title:
+          type: string
+          example: "Aspiradora"
+        Description: 
+          type: string
+          example: "Aspiradora inteligente con navegación láser y control desde el smartph…"
+        Price:
+          type: number
+          example: 299.99
+        Status: 
+          type: boolean
+          example: true
+        stock:
+          type: integer
+          example: 40
+        category: 
+          type: string
+          example: "Hogar Electrico"
+        thumbnails:
+          type: array
+  requestBodies:
+    createUser:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "Aspiradora"
+        Description: 
+          type: string
+          example: "Aspiradora inteligente con navegación láser y control desde el smartph…"
+        Code:
+          type: string
+          example: "AR-001"
+        Price:
+          type: number
+          example: 299.99
+        Status: 
+          type: boolean
+          example: true
+        stock:
+          type: integer
+          example: 40
+        category: 
+          type: string
+          example: "Hogar Electrico"
+        thumbnails:
+          type: array
+        
+
+
+
+  securitySchemes:
+    basicAuth:   
+      type: http
+      scheme: basic
+    bearerAuth:           
+      type: http
+      scheme: bearer
+      bearerFormat: JWT   
+    cookieAuth:         
+      type: apiKey
+      in: cookie
+      name: coderCookie  
+

@@ -1,0 +1,39 @@
+
+<h2>Recuperar contraseña:</h2>
+<hr>
+
+
+{{#if token}}
+
+<form action="/api/sessions/recuperarClave" method="post">
+
+    {{#if error}}
+        <div style="color: red;">{{error}}</div>
+    {{/if}}
+
+    <input type="password" name="contraseña1" placeholder="contraseña Nueva"><br>
+    <input type="password" name="contraseña2" placeholder="Reingrese contraseña">
+    
+    <br>
+    <input type="submit" value="Enviar">
+</form>
+
+
+
+
+
+{{else}}
+<form action="/api/sessions/recuperarClave" method="post">
+
+    {{#if error}}
+        <div style="color: red;">{{error}}</div>
+    {{/if}}
+
+    
+    <input type="email" name="email" placeholder="email">
+    
+    <br>
+    <input type="submit" value="Enviar">
+</form>
+
+{{/if}}

@@ -1,0 +1,91 @@
+<h2>Cambio de rol o Eliminar usuarios</h2>
+
+<form action="/api/users/changeanddelete" method="post">
+
+    <h3>Ingrese el numero de id del usuario</h3>
+    <input type="text" name="idUser" placeholder="Ingrese el numero de id del usuario">
+    <input type="submit" value="enviar">
+
+</form>
+
+{{#if error}}
+
+<div style="color: red;">{{error}}</div>
+
+
+{{/if}}
+
+{{#if mensaje}}
+
+<div style="color: green;">{{mensaje}}</div>
+
+
+{{/if}}
+
+<hr>
+{{#if usuario}}
+
+
+<ul>
+    <li>
+        <strong>Nombre:</strong> {{usuario.nombre }} <br>
+        <strong>Apellido:</strong> {{usuario.apellido }} <br>
+        <strong>Email:</strong> {{usuario.email }}<br>
+        <strong>Edad:</strong> {{usuario.edad }}<br>
+        <strong>Rol: </strong> {{usuario.rol }}<br>
+        <strong>Ultima Conexion: </strong> {{usuario.ultima_conexion }}<br>
+        <strong>Carts: </strong>{{usuario.cart }}<br>
+
+        <br><br>
+    </li>
+
+    <hr>
+
+    {{#if id}}
+
+    <form action="/api/users/changeanddelete" method="post">
+
+
+        <h3>Escoja el rol al que desea cambiar del usuario con el email {{emailUser}}</h3>
+        <label>USUARIO
+            <input type="radio" name="rol2" value="usuario">
+        </label><br>
+        <label>PREMIUM
+            <input type="radio" name="rol2" value="premium">
+        </label><br>
+
+        <input type="submit" value="enviar">
+
+
+        <hr>
+
+
+
+
+        <h3>Desea eliminar el usuario? {{emailUser}}</h3>
+        <label>SI
+            <input type="radio" name="deleteUser" value="SI">
+        </label><br>
+        <label>NO
+            <input type="radio" name="deleteUser" value="NO">
+        </label><br>
+
+        <input type="submit" value="enviar">
+
+
+
+
+    </form>
+
+
+
+    {{/if}}
+
+
+
+
+
+
+
+
+    {{/if}}

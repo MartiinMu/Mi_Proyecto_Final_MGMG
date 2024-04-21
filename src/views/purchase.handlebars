@@ -1,0 +1,31 @@
+
+<h2>Felicitaciones!. Realizaste una compra</h2>
+
+<hr>
+
+
+
+{{#if sinStock}} 
+
+<h3> TODAVIA NO HAY STOCK DE LOS PRODUCTOS. PORFAVOR CONTACTESE CON NOSOTROS PARA MAYOR INFORMACION</h3>
+
+{{else}}
+
+<ul>
+   
+    <li>
+        <strong>Nro de Ticket</strong> {{ticket._id}}<br>
+        <strong>Cliente</strong> {{ticket.purchaser}}<br><br>
+        <strong>Nro de codigo</strong> {{ticket.code}}<br>
+        <strong>Fecha de compra</strong> {{ticket.purchase_datetime}}<br><br>
+        <strong>TOTAL</strong> {{ticket.amount}}<br>
+       
+       
+    </li>
+
+   
+</ul>
+
+{{/if}}
+
+<a href="/products">Seguir comprando</a> <br>

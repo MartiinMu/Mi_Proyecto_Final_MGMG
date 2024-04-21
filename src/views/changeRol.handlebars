@@ -1,0 +1,33 @@
+
+<h2>Cambio de rol:</h2>
+<hr>
+
+{{#if error}}
+
+<form>
+
+  
+        <div style="color: red;">{{error}}</div>
+  
+
+
+ {{else}}
+
+
+<form action="/api/users/premium/{{idUser}}" method="post">
+
+    
+<h3>Escoja el rol al que desea cambiar del usuario con el email {{emailUser}}</h3>
+    <label>USUARIO
+    <input type="radio" name="rol" value="usuario">
+    </label><br>
+    <label>PREMIUM
+    <input type="radio" name="rol" value="premium">
+    </label><br>
+    
+    <input type="submit" value="Enviar">
+</form>
+
+ {{/if}}
+
+ <script src="js/Client.js"></script>

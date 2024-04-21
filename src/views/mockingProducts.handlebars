@@ -1,0 +1,42 @@
+
+<h2>MOCKING PRODUCTS</h2>
+
+
+<hr>
+<ul>
+    {{#each fakerProducts}}
+    <li>
+
+        <strong>Id:</strong> {{this.id}} <br>
+        <strong>Title:</strong> {{this.title}} <br>
+        <strong>Description:</strong> {{this.description}}<br>
+        <strong>Code:</strong> {{this.code}}<br>
+        <strong>Price: </strong> {{this.price}}<br>
+        <strong>Status: </strong>{{this.status}}<br>
+        <strong>Stock: </strong> {{this.stock}}<br>
+        <strong>Category: </strong>{{this.category}}<br>
+        <strong>Thumbnails: </strong> {{this.thumbnails}}<br>
+    
+<br><br>
+
+    </li>
+    
+    {{/each}}
+</ul>
+
+
+
+
+<br><br>
+
+<br><br>
+
+
+
+
+
+<a href="/products">Productos</a> <br>
+
+
+<script src="socket.io/socket.io.js"></script>
+<script src="js/Client.js"></script>

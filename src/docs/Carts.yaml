@@ -1,0 +1,534 @@
+paths:
+  /api/carts/:
+    get:
+      summary: Obtiene todos los carritos.
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Los carritos fueron obtenidos OK desde la DB
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Carts'
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: No hay usuarios logueados
+                example2: 
+                  value:
+                    message: No tiene privilegios suficientes para acceder a este recurso
+    post:
+      summary: Crea y graba carritos en la Base de Datos. 
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Carrito creado correctamente
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Cart'
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: No hay usuarios logueados
+                example2: 
+                  value:
+                    message: No tiene privilegios suficientes para acceder a este recurso
+        "500":
+          content:
+            application/json:
+              examples:  
+                example1:
+                  value:
+                    message: Error generico.
+                example2: 
+                  value:
+                    message: Error inesperado en el servidor - Intente más tarde, o contacte a su administrador
+  /api/carts/{cid}:
+    get:
+      summary: Obtiene un carrito en especifico. 
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          description: Id mongoose del carrito a obtener.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Carrito con stock
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Carts'
+        "201":
+          description: Ticket obtenido
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/ticket'
+        "400":
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: El id ingresado no es un ID mongoose. 
+                example2: 
+                  value:
+                    message: Id no existe en la Base de Datos
+                example3: 
+                  value:
+                    message: No existe productos en el carrito
+                example4: 
+                  value:
+                    message: TODAVIA NO HAY STOCK DE LOS PRODUCTOS. PORFAVOR CONTACTESE CON NOSOTROS PARA MAYOR INFORMACION
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: No hay usuarios logueados
+                example2: 
+                  value:
+                    message: No tiene privilegios suficientes para acceder a este recurso
+        "500":
+          content:
+            application/json:
+              examples:  
+                example1:
+                  value:
+                    message: Error generico.
+                example2: 
+                  value:
+                    message: Error inesperado en el servidor - Intente más tarde, o contacte a su administrador
+    put:
+      summary: Actualiza carrito
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          description: Id mongoose del carrito a obtener.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Carrito obtenido
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Carts'
+        "400":
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: El id ingresado no es un ID mongoose. 
+                example2: 
+                  value:
+                    message: Id no existe en la Base de Datos
+                example3: 
+                  value:
+                    message: Alguna/as de las propiedas no son permitidas
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: No hay usuarios logueados
+                example2: 
+                  value:
+                    message: No tiene privilegios suficientes para acceder a este recurso
+        "500":
+          content:
+            application/json:
+              examples:  
+                example1:
+                  value:
+                    message: Error generico.
+                example2: 
+                  value:
+                    message: Error inesperado en el servidor - Intente más tarde, o contacte a su administrador
+    delete:
+      summary: Elimina el carrito seleccionado. 
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          description: Id mongoose del carrito a obtener.
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Productos del carrito eliminado
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Cart'
+        "400":
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: El id ingresado no es un ID mongoose. 
+                example2: 
+                  value:
+                    message: Id no existe en la Base de Datos
+                example3: 
+                  value:
+                    message: El id ${pid} no existe
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: No hay usuarios logueados
+                example2: 
+                  value:
+                    message: No tiene privilegios suficientes para acceder a este recurso
+        "500":
+          content:
+            application/json:
+              examples:  
+                example1:
+                  value:
+                    message: Error generico.
+                example2: 
+                  value:
+                    message: Error inesperado en el servidor - Intente más tarde, o contacte a su administrador
+  /api/carts/{cid}/purchase:
+    get:
+      summary: Genera ticket de compra. 
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          description: Id mongoose del carrito a obtener.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Carrito obtenido
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Carts'
+        "201":
+          description: Ticket creado
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/ticket'
+        "400":
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: El id ingresado no es un ID mongoose. 
+                example2: 
+                  value:
+                    message: Id no existe en la Base de Datos
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: No hay usuarios logueados
+                example2: 
+                  value:
+                    message: No tiene privilegios suficientes para acceder a este recurso
+        "500":
+          content:
+            application/json:
+              examples:  
+                example1:
+                  value:
+                    message: Error generico.
+                example2: 
+                  value:
+                    message: Error inesperado en el servidor - Intente más tarde, o contacte a su administrador
+  /api/carts/{cid}/product/{pid}:
+    post:
+      summary: Crea y graba carritos en la Base de Datos.
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          description: ID del carrito de compras
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: pid
+          description: ID del producto a agregar
+          required: true
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Carrito actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarritoActualizado'
+        "400":
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: El id ingresado no es un ID mongoose. 
+                example2: 
+                  value:
+                    message: Id no existe en la Base de Datos
+                example3: 
+                  value:
+                    message: No puede agregar productos siendo el owner del producto igual al suyo
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: No hay usuarios logueados
+                example2: 
+                  value:
+                    message: No tiene privilegios suficientes para acceder a este recurso
+        "500":
+          content:
+            application/json:
+              examples:  
+                example1:
+                  value:
+                    message: Error generico.
+                example2: 
+                  value:
+                    message: Error inesperado en el servidor - Intente más tarde, o contacte a su administrador
+    put:
+      summary: Actualiza carrito
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          description: ID del carrito de compras
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: pid
+          description: ID del producto a agregar
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Carrito actualizado
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Carts'
+        "400":
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: El id ingresado no es un ID mongoose. 
+                example2: 
+                  value:
+                    message: Id no existe en la Base de Datos
+                example3: 
+                  value:
+                    message: Alguna/as de las propiedas no son permitidas
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: No hay usuarios logueados
+                example2: 
+                  value:
+                    message: No tiene privilegios suficientes para acceder a este recurso
+        "500":
+          content:
+            application/json:
+              examples:  
+                example1:
+                  value:
+                    message: Error generico.
+                example2: 
+                  value:
+                    message: Error inesperado en el servidor - Intente más tarde, o contacte a su administrador
+    delete:
+      summary: Elimina un producto en especifico del carrito seleccionado
+      tags:
+        - Carts
+      parameters:
+        - in: path
+          name: cid
+          description: ID del carrito de compras
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: pid
+          description: ID del producto a agregar
+          required: true
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Producto seleccionado del carrito eliminado
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Cart'
+        "400":
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: El id ingresado no es un ID mongoose. 
+                example2: 
+                  value:
+                    message: Id no existe en la Base de Datos
+                example3: 
+                  value:
+                    message: El id ${pid} no existe
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              examples:
+                example1:
+                  value:
+                    message: No hay usuarios logueados
+                example2: 
+                  value:
+                    message: No tiene privilegios suficientes para acceder a este recurso
+        "500":
+          content:
+            application/json:
+              examples:  
+                example1:
+                  value:
+                    message: Error generico.
+                example2: 
+                  value:
+                    message: Error inesperado en el servidor - Intente más tarde, o contacte a su administrador
+ 
+
+
+
+
+
+    
+
+components:
+  schemas:
+    Carts:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+          readOnly: true
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                type: string
+              quantity:
+                type: integer
+    Cart:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+          readOnly: true
+        products:
+          type: array
+          example: []
+    ticket:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+          readOnly: true
+        purchase_datetime:
+          type: date
+        amount:
+          type: number
+        purchaser:
+          type: string
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                type: string
+    CarritoActualizado:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Se Creo los campos product y quantity. Product = ${pid} y Quantity = 1
+          example: Se Creo los campos product y quantity. Product = ${pid} y Quantity = 1
+        carrito:
+          type: object
+          description: Producto agregado correctamente
+          properties:
+            id:
+              type: string
+              format: int64
+              readOnly: true
+            products:
+              type: array
+              items:
+                type: object
+                properties:
+                  product:
+                    type: string
+                  quantity:
+                    type: integer
+          
